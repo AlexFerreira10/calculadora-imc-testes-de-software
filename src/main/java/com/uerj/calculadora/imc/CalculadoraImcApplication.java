@@ -5,25 +5,25 @@ import java.util.Scanner;
 
 public class CalculadoraImcApplication {
 
-	private static final double ALTURA_MAX = 2.2;
-	private static final double ALTURA_MIN = 0.5;
-	private static final double PESO_MAX = 300.0;
-	private static final double PESO_MIN = 2.5;
+	private static double ALTURA_MAX = 2.2;
+	private static double ALTURA_MIN = 0.5;
+	private static double PESO_MAX = 300.0;
+	private static double PESO_MIN = 2.5;
 
 	public static void main(String[] args) {
+		// Tive que jogar o Scanner para cá de novo pois tava dando problemas de fechamento nos testes
+		Scanner sc = new Scanner(System.in);
 
-
-		double peso = obterDouble("Digite o peso (kg): ", PESO_MIN, PESO_MAX);
-		double altura = obterDouble("Digite a altura (m): ", ALTURA_MIN, ALTURA_MAX);
+		double peso = checkDouble(sc, "Digite o peso (kg): ", PESO_MIN, PESO_MAX);
+		double altura = checkDouble(sc, "Digite a altura (m): ", ALTURA_MIN, ALTURA_MAX);
 
 		String imc = CalculoIMC.resultado(peso, altura);
 		System.out.println("Seu IMC é: " + imc);
 
+		sc.close();
 	}
 
-	private static double obterDouble(String mensagem, double min, double max) {
-		Scanner sc = new Scanner(System.in);
-
+	protected static double checkDouble(Scanner sc, String mensagem, double min, double max) {
 		double valor = 0.0;
 		boolean inputValido = false;
 
@@ -44,8 +44,6 @@ public class CalculadoraImcApplication {
 			} catch (InputMismatchException e) {
 				System.out.println("Erro de entrada: " + e.getMessage());
 				sc.next();
-			} finally {
-				sc.close();
 			}
 		}
 		return valor;
