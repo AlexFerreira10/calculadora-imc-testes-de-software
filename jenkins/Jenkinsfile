@@ -5,10 +5,12 @@ pipeline {
         stage('Build') {
             agent {
                 docker {
-                    image 'maven'
+                    image 'maven'  // Usando a imagem do Maven
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'  // Monta o socket do Docker
                 }
             }
             steps {
+                // Executa o comando Maven para empacotar o projeto, ignorando os testes
                 sh 'mvn package -Dmaven.test.skip=true'
             }
         }
