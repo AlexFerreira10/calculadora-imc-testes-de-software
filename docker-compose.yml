@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts  # Usando a versão LTS do Jenkins
+    container_name: jenkins
+    ports:
+      - "8084:8080"  # Porta para acessar o Jenkins
+    volumes:
+      - 'jenkins_home:/var/jenkins_home'  # Persistência de dados
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    environment:
+      - JENKINS_OPTS=--enable-future-java  # Habilita a flag para versões futuras de Java
+
+volumes:
+  jenkins_home:
+    driver: local
