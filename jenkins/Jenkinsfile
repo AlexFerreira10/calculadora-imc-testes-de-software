@@ -1,11 +1,11 @@
 #!/usr/bin/env groovy
 pipeline {
-    agent none
+    agent any  // Define que o pipeline pode ser executado em qualquer agente
     stages {
         stage('Build') {
             agent {
                 docker {
-                    image 'maven'
+                    image 'maven:3.8.5-openjdk-17'
                 }
             }
             steps {
