@@ -1,17 +1,24 @@
 #!/usr/bin/env groovy
 pipeline {
-    agent any  // Define que o pipeline pode ser executado em qualquer agente
+    agent any
     stages {
-        stage('Build') {
-            agent {
-                docker {
-                    image 'maven'  // Usando a imagem do Maven
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'  // Monta o socket do Docker
-                }
-            }
+        stage('Checkout') {
             steps {
-                // Executa o comando Maven para empacotar o projeto, ignorando os testes
-                sh 'mvn package -Dmaven.test.skip=true'
+                git 'https://github.com/AlexFerreira10/calculadora-imc-testes-de-software.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Docker para rodar os testes em um contêiner
+                sh 'docker build -t my-app .'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Executa os testes no contêiner
+                sh 'docker run my-app mvn test'
             }
         }
     }
