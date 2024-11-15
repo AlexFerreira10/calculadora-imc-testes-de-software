@@ -14,7 +14,7 @@ class CalculadoraImcApplicationTests {
 	// Precisamos fazer isso tudo porque o Mockito, que é usado para simular comportamentos em testes no Java, não pode
 	// simular a entrada de métodos em classes finais como Scanner
 	// O mockito até tem uma extensão chamada PowerMock, que resolveria essa questão caso
-	// a senhora queria explorar, porém queria focar mais na ideia dos testes unitários raiz mesmo
+	// a senhora queria explorar, porém queria focar nessa abordagem diferente
 
 	@Test // Testa se a entrada é um double
 	void testCheckDoubleValido() {
